@@ -1,0 +1,2856 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>TRIBAL SCHOLAR — Academic Prototype</title>
+
+<style>
+:root{
+  --navy:#12345b;
+  --blue:#1769aa;
+  --light:#f4f7fb;
+  --line:#dbe3ed;
+  --text:#1c2733;
+  --muted:#667789;
+  --green:#16834b;
+  --amber:#b77900;
+  --red:#b42318;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--light);
+  color:var(--text)
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.top{
+  min-height:76px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 28px;
+  position:sticky;
+  top:0;
+  z-index:5;
+  gap:20px;
+}
+
+.brand{
+  font-weight:800;
+  color:var(--navy);
+  letter-spacing:.3px
+}
+
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:500;
+  margin-top:3px
+}
+
+.prototype-banner{
+  background:#fff6df;
+  border:1px solid #ecd394;
+  color:#765200;
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:800;
+  border-radius:6px;
+  text-align:center;
+  line-height:1.4;
+}
+
+.notice{
+  background:#fff8e8;
+  border-bottom:1px solid #ecd394;
+  color:#664900;
+  padding:9px 18px;
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+}
+
+.shell{
+  display:flex;
+  min-height:calc(100vh - 76px)
+}
+
+aside{
+  width:245px;
+  background:#fff;
+  border-right:1px solid var(--line);
+  padding:20px 14px
+}
+
+.navbtn{
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:11px 13px;
+  border-radius:7px;
+  color:#405266;
+  margin:2px 0
+}
+
+.navbtn:hover,
+.navbtn.active{
+  background:#eaf2fb;
+  color:var(--navy);
+  font-weight:700
+}
+
+main{
+  flex:1;
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
+  width:100%
+}
+
+.pagehead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:22px
+}
+
+h1{
+  font-size:25px;
+  margin:0 0 5px;
+  color:var(--navy)
+}
+
+h2{
+  font-size:18px;
+  margin:0 0 15px;
+  color:var(--navy)
+}
+
+h3{
+  font-size:15px;
+  margin:0 0 9px
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px
+}
+
+.grid{
+  display:grid;
+  gap:16px
+}
+
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:18px;
+  box-shadow:0 1px 2px #12233a08
+}
+
+.kpi{
+  font-size:26px;
+  font-weight:800;
+  color:var(--navy);
+  margin-top:6px
+}
+
+.label{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.btn{
+  border:1px solid #b9c8d8;
+  background:#fff;
+  color:var(--navy);
+  padding:9px 14px;
+  border-radius:7px;
+  font-weight:700
+}
+
+.btn.primary{
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff
+}
+
+.btn.success{
+  background:#eaf7f0;
+  border-color:#b7e2c8;
+  color:var(--green)
+}
+
+.btn.warn{
+  background:#fff6df;
+  border-color:#ecd394;
+  color:var(--amber)
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  background:#eef2f6;
+  color:#506174
+}
+
+.badge.green{
+  background:#e8f7ef;
+  color:var(--green)
+}
+
+.badge.amber{
+  background:#fff5d9;
+  color:var(--amber)
+}
+
+.badge.red{
+  background:#fdeceb;
+  color:var(--red)
+}
+
+.progress{
+  height:8px;
+  background:#e7edf3;
+  border-radius:99px;
+  overflow:hidden
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:var(--blue)
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center
+}
+
+.stack>*+*{
+  margin-top:12px
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px
+}
+
+th,td{
+  padding:11px 9px;
+  border-bottom:1px solid var(--line);
+  text-align:left
+}
+
+th{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.3px
+}
+
+.timeline{
+  display:flex;
+  gap:0;
+  overflow:auto;
+  margin:18px 0
+}
+
+.step{
+  min-width:120px;
+  text-align:center;
+  position:relative;
+  padding:0 5px
+}
+
+.step:before{
+  content:"";
+  height:2px;
+  background:#cbd6e2;
+  position:absolute;
+  top:11px;
+  left:50%;
+  right:-50%;
+  z-index:0
+}
+
+.step:last-child:before{
+  display:none
+}
+
+.dot{
+  width:23px;
+  height:23px;
+  border:2px solid #aebdcd;
+  background:#fff;
+  border-radius:50%;
+  margin:0 auto 7px;
+  position:relative;
+  z-index:1
+}
+
+.done .dot{
+  background:var(--green);
+  border-color:var(--green)
+}
+
+.done .dot:after{
+  content:"✓";
+  color:#fff;
+  font-size:12px;
+  position:absolute;
+  left:4px;
+  top:1px
+}
+
+.current .dot{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px #dcecf9
+}
+
+input,select{
+  width:100%;
+  padding:10px;
+  border:1px solid #cbd6e2;
+  border-radius:6px;
+  background:#fff
+}
+
+.field{
+  margin-bottom:12px
+}
+
+.field label{
+  font-size:12px;
+  font-weight:700;
+  display:block;
+  margin-bottom:5px
+}
+
+.alert{
+  padding:12px 14px;
+  border-radius:7px;
+  background:#fff6df;
+  border:1px solid #ecd394;
+  font-size:13px
+}
+
+.info{
+  background:#edf6ff;
+  border-color:#c5def3
+}
+
+.successbox{
+  background:#eaf7f0;
+  border:1px solid #b7e2c8;
+  padding:14px;
+  border-radius:7px
+}
+
+.hero{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:30px;
+  border-radius:12px;
+  margin-bottom:18px
+}
+
+.hero h1{
+  font-size:30px
+}
+
+.hero p{
+  max-width:780px;
+  line-height:1.6;
+  color:#526579
+}
+
+.actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap
+}
+
+.hidden{
+  display:none!important
+}
+
+.search{
+  max-width:360px
+}
+
+.statline{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+
+.statline span:first-child{
+  width:145px;
+  font-size:12px
+}
+
+.bar{
+  flex:1;
+  height:9px;
+  background:#e8edf2;
+  border-radius:99px;
+  overflow:hidden
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  background:#2f78b7
+}
+
+.footer{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:28px;
+  text-align:center;
+  line-height:1.6
+}
+
+.demo-footer{
+  margin-top:12px;
+  padding:14px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted)
+}
+
+@media(max-width:900px){
+  aside{width:190px}
+  .g4,.g3{grid-template-columns:repeat(2,1fr)}
+  .top{flex-wrap:wrap}
+}
+
+@media(max-width:650px){
+  aside{display:none}
+  main{padding:16px}
+  .g4,.g3,.g2{grid-template-columns:1fr}
+  .top{padding:12px 15px}
+  .prototype-banner{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="notice">
+  ⚠ ACADEMIC / HACKATHON DEMONSTRATION PROTOTYPE — NOT AN OFFICIAL GOVERNMENT WEBSITE.
+  DO NOT ENTER REAL PERSONAL, FINANCIAL, PASSWORD, OTP OR IDENTITY INFORMATION.
+</div>
+
+<div id="app"></div>
+
+<script>
+
+const state={
+  role:"applicant",
+  page:"dashboard",
+  profile:82,
+  application:"Under Scrutiny",
+  deficiency:false,
+  docUploaded:false,
+  verified:false,
+  payment:"Processing",
+  eligibility:null,
+  grievance:null
+};
+
+const schemes=[
+  {
+    name:"National Fellowship for ST Students — Demo",
+    type:"Fellowship",
+    level:"Higher Education / Research",
+    match:94,
+    status:"Demo — Applications Open"
+  },
+  {
+    name:"National Overseas Scholarship — Demo",
+    type:"Scholarship",
+    level:"Postgraduate / PhD / Post-Doctoral",
+    match:87,
+    status:"Demo — Applications Open"
+  },
+  {
+    name:"Post-Matric Scholarship — Demo",
+    type:"Scholarship",
+    level:"Higher Education",
+    match:91,
+    status:"Demo — Applications Open"
+  },
+  {
+    name:"Pre-Matric Scholarship — Demo",
+    type:"Scholarship",
+    level:"School Education",
+    match:72,
+    status:"Demo — Applications Open"
+  },
+  {
+    name:"Top Class Education Support — Demo",
+    type:"Scholarship",
+    level:"Higher Education",
+    match:83,
+    status:"Demo — Applications Open"
+  }
+];
+
+const stages=[
+  "Submitted",
+  "AI Screening",
+  "Eligibility",
+  "Verification",
+  "Scrutiny",
+  "Selection",
+  "Sanction",
+  "Payment"
+];
+
+function nav(){
+
+  if(state.role==="applicant"){
+
+    return [
+      ["dashboard","Dashboard"],
+      ["profile","My Profile"],
+      ["schemes","Find Schemes"],
+      ["applications","My Applications"],
+      ["documents","Documents"],
+      ["payments","Payment Demo"],
+      ["fellowship","Fellowship"],
+      ["grievances","Grievances"],
+      ["help","Help & FAQs"]
+    ];
+
+  }
+
+  return [
+    ["admin","Overview"],
+    ["queue","Application Queue"],
+    ["intelligence","Application Intelligence"],
+    ["selection","Selection"],
+    ["payments","Payment Demo"],
+    ["analytics","Analytics"],
+    ["grievances","Grievances"],
+    ["audit","Audit Logs"],
+    ["config","Scheme Configuration"]
+  ];
+}
+
+function layout(content){
+
+return `
+<header class="top">
+
+  <div class="brand">
+    TRIBAL SCHOLAR
+    <small>
+      AI-Enabled Scholarship Management — Academic Project Prototype
+    </small>
+  </div>
+
+  <div class="actions">
+
+    <span class="prototype-banner">
+      DEMO ONLY · FICTIONAL DATA · NOT AN OFFICIAL SERVICE
+    </span>
+
+    <button class="btn" onclick="switchRole()">
+      ${state.role==="applicant"?"Demo Officer View":"Demo Applicant View"}
+    </button>
+
+  </div>
+
+</header>
+
+<div class="shell">
+
+  <aside>
+
+    ${nav().map(x=>`
+      <button
+        class="navbtn ${state.page===x[0]?'active':''}"
+        onclick="go('${x[0]}')">
+        ${x[1]}
+      </button>
+    `).join("")}
+
+    <div style="margin-top:22px;padding:12px;border-top:1px solid var(--line)">
+
+      <div class="muted">Demo session</div>
+
+      <b>
+        ${state.role==="applicant"
+          ?"Demo Student"
+          :"Demo Officer"}
+      </b>
+
+      <div class="muted" style="margin-top:6px">
+        No real authentication is implemented.
+      </div>
+
+    </div>
+
+  </aside>
+
+  <main>
+
+    ${content}
+
+    <div class="demo-footer">
+      <b>ACADEMIC PROTOTYPE</b><br>
+      This interface uses fictional demonstration data and simulated workflows.
+      It is not operated by or connected to any government department.
+      No real PFMS, DBT, Aadhaar, banking, identity or government authentication
+      integration is implemented.
+    </div>
+
+    <div class="footer">
+      AI outputs shown here are illustrative decision-support signals only.
+      Final decisions in a real implementation would follow applicable
+      official rules, verification procedures and authorized human review.
+    </div>
+
+  </main>
+
+</div>
+`;
+}
+
+function head(title,sub=""){
+
+return `
+<div class="pagehead">
+
+  <div>
+    <h1>${title}</h1>
+    <div class="muted">${sub}</div>
+  </div>
+
+</div>
+`;
+}
+
+function dashboard(){
+
+let step=
+state.application==="Deficient"?3:
+state.application==="Resubmitted"?4:
+state.application==="Verified"?5:2;
+
+return `
+
+<div class="hero">
+
+  <span class="badge amber">
+    ACADEMIC PROJECT DEMONSTRATION
+  </span>
+
+  <h1>
+    Smarter Scholarship Administration for Tribal Students
+  </h1>
+
+  <p>
+    A conceptual AI-enabled workflow designed to demonstrate how
+    scholarship discovery, preliminary eligibility assessment,
+    document review and administrative workflows could be organized
+    in a centralized digital platform.
+  </p>
+
+  <div class="actions">
+
+    <button class="btn primary" onclick="go('schemes')">
+      Explore Demo Schemes
+    </button>
+
+    <button class="btn" onclick="checkEligibility()">
+      Run Demo Eligibility Check
+    </button>
+
+  </div>
+
+</div>
+
+${head(
+  "Demo Applicant Dashboard",
+  "Illustrative scholarship and fellowship workflow using fictional data."
+)}
+
+<div class="grid g4">
+
+  <div class="card">
+
+    <div class="label">Profile Completion</div>
+
+    <div class="kpi">
+      ${state.profile}%
+    </div>
+
+    <div class="progress">
+      <i style="width:${state.profile}%"></i>
+    </div>
+
+    <div class="muted" style="margin-top:9px">
+      Demo fields: bank verification, income certificate
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="label">Demo Application</div>
+
+    <div class="kpi">1</div>
+
+    <div class="badge amber">
+      ${state.application}
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="label">Preliminary Match</div>
+
+    <div class="kpi">
+      ${state.eligibility||94}%
+    </div>
+
+    <div class="muted">
+      Illustrative AI assessment
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="label">Payment Simulation</div>
+
+    <div class="kpi">₹XX,XXX</div>
+
+    <div class="badge ${state.payment==="Paid"?"green":"amber"}">
+      ${state.payment}
+    </div>
+
+  </div>
+
+</div>
+
+<div class="card" style="margin-top:16px">
+
+  <div class="row">
+
+    <div>
+
+      <h2>
+        National Fellowship — Demonstration Workflow
+      </h2>
+
+      <div class="muted">
+        Demo Application ID: DEMO-NFST-2026-00124
+      </div>
+
+    </div>
+
+    <span class="badge amber">
+      ${state.application}
+    </span>
+
+  </div>
+
+  <div class="timeline">
+
+    ${stages.map((s,i)=>`
+
+      <div class="step
+        ${i<step?'done':''}
+        ${i===step?'current':''}">
+
+        <div class="dot"></div>
+
+        <div class="muted">
+          ${s}
+        </div>
+
+      </div>
+
+    `).join("")}
+
+  </div>
+
+  ${
+    state.deficiency
+    ?
+    `<div class="alert">
+
+      <b>Demo action required:</b>
+      Income certificate is unclear / unreadable.
+
+      <button
+        class="btn warn"
+        onclick="go('documents')"
+        style="margin-left:8px">
+
+        Upload Demo Document
+
+      </button>
+
+    </div>`
+    :""
+  }
+
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+
+  <div class="card">
+
+    <h2>
+      Suggested Demo Schemes
+    </h2>
+
+    ${schemes.slice(0,3).map(s=>`
+
+      <div
+        class="row"
+        style="padding:10px 0;border-bottom:1px solid var(--line)">
+
+        <div>
+
+          <b>${s.name}</b>
+
+          <div class="muted">
+            ${s.level}
+          </div>
+
+        </div>
+
+        <span class="badge green">
+          ${s.match}% match
+        </span>
+
+      </div>
+
+    `).join("")}
+
+  </div>
+
+  <div class="card">
+
+    <h2>
+      Illustrative AI Verification
+    </h2>
+
+    <div class="stack">
+
+      <div class="statline">
+
+        <span>Document completeness</span>
+
+        <div class="bar">
+          <i style="width:96%"></i>
+        </div>
+
+        <b>96%</b>
+
+      </div>
+
+      <div class="statline">
+
+        <span>Data consistency</span>
+
+        <div class="bar">
+          <i style="width:98%"></i>
+        </div>
+
+        <b>98%</b>
+
+      </div>
+
+      <div class="statline">
+
+        <span>Review confidence</span>
+
+        <div class="bar">
+          <i style="width:91%"></i>
+        </div>
+
+        <b>91%</b>
+
+      </div>
+
+    </div>
+
+    <div class="alert info" style="margin-top:15px">
+
+      These scores are fictional demonstration values.
+      AI assists with extraction and flagging in this concept;
+      it does not make final decisions.
+
+    </div>
+
+  </div>
+
+</div>
+`;
+}
+
+function schemesPage(){
+
+return `
+
+${head(
+  "Explore Scholarship & Fellowship Concepts",
+  "Browse fictional demonstration schemes and test the prototype workflow."
+)}
+
+<div class="card">
+
+  <div class="row">
+
+    <input
+      class="search"
+      placeholder="Search demo schemes..."
+      oninput="filterSchemes(this.value)">
+
+    <select class="search">
+
+      <option>All education levels</option>
+      <option>Higher Education</option>
+      <option>Research</option>
+
+    </select>
+
+  </div>
+
+  <div
+    id="schemeList"
+    class="grid g2"
+    style="margin-top:16px">
+
+    ${schemeCards(schemes)}
+
+  </div>
+
+</div>
+`;
+}
+
+function schemeCards(arr){
+
+return arr.map(s=>`
+
+<div class="card">
+
+  <div class="row">
+
+    <span class="badge">
+      ${s.type}
+    </span>
+
+    <span class="badge green">
+      ${s.status}
+    </span>
+
+  </div>
+
+  <h2 style="margin-top:12px">
+    ${s.name}
+  </h2>
+
+  <div class="muted">
+    ${s.level}
+  </div>
+
+  <div style="margin:15px 0">
+
+    <b>
+      Illustrative AI match: ${s.match}%
+    </b>
+
+    <div
+      class="progress"
+      style="margin-top:6px">
+
+      <i style="width:${s.match}%"></i>
+
+    </div>
+
+  </div>
+
+  <div class="actions">
+
+    <button
+      class="btn primary"
+      onclick="checkEligibility()">
+
+      Run Demo Eligibility
+
+    </button>
+
+    <button
+      class="btn"
+      onclick="startApplication()">
+
+      Start Demo Application
+
+    </button>
+
+  </div>
+
+</div>
+
+`).join("");
+}
+
+function eligibility(){
+
+return `
+
+${head(
+  "AI Eligibility Demonstration",
+  "Illustrative assessment against fictional configurable rules."
+)}
+
+<div class="grid g2">
+
+  <div class="card">
+
+    <h2>Demo Applicant Inputs</h2>
+
+    <div class="alert info" style="margin-bottom:15px">
+
+      All values on this screen are fictional.
+      Do not enter real identity or financial information.
+
+    </div>
+
+    <div class="field">
+
+      <label>Category — Demonstration Value</label>
+
+      <select>
+        <option>Demo ST Category</option>
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>Annual Family Income — Demo Value</label>
+
+      <input value="₹XX,XXX">
+
+    </div>
+
+    <div class="field">
+
+      <label>Education Level</label>
+
+      <select>
+        <option>Higher Education — Demo</option>
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>Academic Percentage / CGPA</label>
+
+      <input value="82">
+
+    </div>
+
+    <div class="field">
+
+      <label>Institution</label>
+
+      <input value="Demo University">
+
+    </div>
+
+    <div class="field">
+
+      <label>Admission Status</label>
+
+      <select>
+        <option>Confirmed — Demo</option>
+      </select>
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="runEligibility()">
+
+      Run Demonstration Check
+
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    ${
+      state.eligibility
+      ?
+
+      `
+
+      <span class="badge green">
+        PRELIMINARY DEMO RESULT
+      </span>
+
+      <div class="kpi" style="margin-top:12px">
+        ${state.eligibility}%
+      </div>
+
+      <div class="muted">
+        Illustrative eligibility match
+      </div>
+
+      <h2 style="margin-top:22px">
+        Assessment Breakdown
+      </h2>
+
+      ${
+        [
+          "Category requirement",
+          "Academic requirement",
+          "Income requirement",
+          "Course requirement",
+          "Institution requirement"
+        ].map(x=>`
+
+          <div
+            style="padding:9px 0;border-bottom:1px solid var(--line)">
+
+            ✓ ${x}
+
+          </div>
+
+        `).join("")
+      }
+
+      <div class="alert" style="margin-top:14px">
+
+        ⚠ This is a prototype assessment.
+        A real system would require verification against
+        the applicable official scheme guidelines.
+
+      </div>
+
+      <p class="muted">
+
+        AI-based preliminary assessment only.
+        Final eligibility would be determined through
+        authorized human review and official procedures.
+
+      </p>
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="startApplication()">
+
+          Start Demo Application
+
+        </button>
+
+        <button
+          class="btn"
+          onclick="go('schemes')">
+
+          Back to Schemes
+
+        </button>
+
+      </div>
+
+      `
+
+      :
+
+      `
+
+      <div class="alert info">
+
+        Enter/select demonstration values and run the checker.
+        The prototype uses fictional configurable rules.
+
+      </div>
+
+      `
+    }
+
+  </div>
+
+</div>
+`;
+}
+
+function application(){
+
+return `
+
+${head(
+  "Demo Application Workflow",
+  "Illustrative application interface using fictional information."
+)}
+
+<div class="card">
+
+  <div class="alert info" style="margin-bottom:18px">
+
+    <b>Demo only:</b>
+    All applicant information below is fictional.
+    Do not enter real personal, financial or identity information.
+
+  </div>
+
+  <div class="timeline">
+
+    ${
+      [
+        "Personal",
+        "Academic",
+        "Financial",
+        "Bank",
+        "Scheme",
+        "Documents",
+        "Review",
+        "Submit"
+      ].map((s,i)=>`
+
+        <div class="step ${i<6?'done':''} ${i===6?'current':''}">
+
+          <div class="dot"></div>
+
+          <div class="muted">
+            ${s}
+          </div>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+  <div class="grid g2">
+
+    <div>
+
+      <h2>
+        Demo Applicant Information
+      </h2>
+
+      <div class="field">
+
+        <label>Name</label>
+
+        <input value="Demo Applicant">
+
+      </div>
+
+      <div class="field">
+
+        <label>Education</label>
+
+        <input value="PhD — Computer Science — Demo">
+
+      </div>
+
+      <div class="field">
+
+        <label>Institution</label>
+
+        <input value="Demo University">
+
+      </div>
+
+      <div class="field">
+
+        <label>Academic Score</label>
+
+        <input value="82%">
+
+      </div>
+
+    </div>
+
+    <div>
+
+      <h2>
+        Application Readiness
+      </h2>
+
+      <div class="kpi">
+        96%
+      </div>
+
+      <div class="progress">
+
+        <i style="width:96%"></i>
+
+      </div>
+
+      <div class="stack" style="margin-top:14px">
+
+        ${
+          [
+            "Personal details",
+            "Academic details",
+            "Financial details",
+            "Bank verification"
+          ].map(x=>`
+
+            <div>
+              ✓ ${x} — Demo
+            </div>
+
+          `).join("")
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="actions"
+    style="margin-top:20px">
+
+    <button
+      class="btn primary"
+      onclick="submitApplication()">
+
+      Submit Demo Application
+
+    </button>
+
+    <button
+      class="btn"
+      onclick="go('documents')">
+
+      Review Demo Documents
+
+    </button>
+
+  </div>
+
+</div>
+`;
+}
+
+function documents(){
+
+return `
+
+${head(
+  "Documents & AI Verification Demo",
+  "Simulated document analysis using fictional demonstration data."
+)}
+
+<div class="alert info" style="margin-bottom:16px">
+
+  No actual documents are uploaded or processed by this prototype.
+  The displayed certificate information is fictional.
+
+</div>
+
+<div class="grid g2">
+
+  <div class="card">
+
+    <h2>
+      Demo Income Certificate
+    </h2>
+
+    <div class="badge ${state.docUploaded?'green':'amber'}">
+
+      ${
+        state.docUploaded
+        ?"Demo Analysis Complete"
+        :"Demo Document Not Uploaded"
+      }
+
+    </div>
+
+    ${
+      state.docUploaded
+
+      ?
+
+      `
+
+      <div class="stack" style="margin-top:16px">
+
+        <div>
+          <b>Applicant</b><br>
+          Demo Applicant
+        </div>
+
+        <div>
+          <b>Certificate Number</b><br>
+          DEMO-CERT-001
+        </div>
+
+        <div>
+          <b>Income</b><br>
+          ₹XX,XXX
+        </div>
+
+        <div>
+          <b>Issuing Authority</b><br>
+          Demo Authority
+        </div>
+
+      </div>
+
+      `
+
+      :
+
+      `
+
+      <p class="muted">
+
+        Use the demonstration upload button
+        to simulate document verification.
+
+      </p>
+
+      `
+    }
+
+    <div
+      class="actions"
+      style="margin-top:18px">
+
+      <button
+        class="btn primary"
+        onclick="uploadDoc()">
+
+        Upload Demo Document
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>
+      AI Document Verification Demo
+    </h2>
+
+    ${
+      state.docUploaded
+
+      ?
+
+      `
+
+      <div class="successbox">
+
+        <b>
+          Demonstration Consistency Score: 98%
+        </b>
+
+        <p class="muted">
+
+          Fictional extracted fields are shown
+          as internally consistent.
+
+        </p>
+
+      </div>
+
+      <h3 style="margin-top:18px">
+        Illustrative Risk Analysis
+      </h3>
+
+      <div class="badge green">
+        LOW RISK — DEMO
+      </div>
+
+      <p class="muted">
+
+        No fraud decision is made.
+        A real implementation would route anomalies
+        to authorized human reviewers.
+
+      </p>
+
+      `
+
+      :
+
+      `
+
+      <div class="alert info">
+
+        Upload a demo document to demonstrate
+        OCR extraction, cross-field comparison
+        and anomaly-review concepts.
+
+      </div>
+
+      `
+    }
+
+  </div>
+
+</div>
+
+<div class="card" style="margin-top:16px">
+
+  <h2>
+    Deficiency Resolution Demo
+  </h2>
+
+  ${
+    state.deficiency
+
+    ?
+
+    `
+
+    <div class="alert">
+
+      <b>
+        Demonstration deficiency:
+      </b>
+
+      Income certificate is unclear / unreadable.
+
+      <br><br>
+
+      Required action:
+      Upload a clearer demo document.
+
+    </div>
+
+    <div
+      class="actions"
+      style="margin-top:12px">
+
+      <button
+        class="btn primary"
+        onclick="resubmit()">
+
+        Resubmit Demo Document
+
+      </button>
+
+    </div>
+
+    `
+
+    :
+
+    `
+
+    <div class="muted">
+      No active demonstration deficiency.
+    </div>
+
+    `
+  }
+
+</div>
+`;
+}
+
+function admin(){
+
+return `
+
+${head(
+  "Administrative Dashboard — Prototype",
+  "Illustrative operational view using fictional data."
+)}
+
+<div class="alert info" style="margin-bottom:16px">
+
+  The statistics shown below are fictional demonstration values
+  and do not represent actual government applications or records.
+
+</div>
+
+<div class="grid g4">
+
+  ${
+    [
+      ["Demo Applications","12,480"],
+      ["Under Verification","1,842"],
+      ["Demo Deficiencies","628"],
+      ["Preliminary Eligible","9,214"]
+    ].map(x=>`
+
+      <div class="card">
+
+        <div class="label">
+          ${x[0]}
+        </div>
+
+        <div class="kpi">
+          ${x[1]}
+        </div>
+
+      </div>
+
+    `).join("")
+  }
+
+</div>
+
+<div
+  class="grid g2"
+  style="margin-top:16px">
+
+  <div class="card">
+
+    <h2>
+      Demonstration Verification Pipeline
+    </h2>
+
+    ${
+      [
+        "Submitted",
+        "AI Reviewed",
+        "Deficient",
+        "Preliminary Eligible",
+        "Selected",
+        "Payment Simulation"
+      ].map((x,i)=>`
+
+        <div
+          class="statline"
+          style="margin:14px 0">
+
+          <span>${x}</span>
+
+          <div class="bar">
+
+            <i style="width:${95-i*11}%"></i>
+
+          </div>
+
+          <b>
+            ${[
+              12480,
+              10830,
+              628,
+              9214,
+              1245,
+              982
+            ][i].toLocaleString()}
+          </b>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+  <div class="card">
+
+    <h2>
+      Illustrative AI Insights
+    </h2>
+
+    <div class="alert info">
+
+      Demo insight:
+      document verification workload increased by 18%.
+
+    </div>
+
+    <div
+      class="alert info"
+      style="margin-top:10px">
+
+      Demo insight:
+      income-certificate deficiencies are highest
+      in one simulated scheme category.
+
+    </div>
+
+    <div
+      class="alert info"
+      style="margin-top:10px">
+
+      Demo insight:
+      simulated verification time increased
+      during document scrutiny.
+
+    </div>
+
+    <p class="muted">
+
+      All analytics are fictional prototype data.
+
+    </p>
+
+  </div>
+
+</div>
+`;
+}
+
+function queue(){
+
+return `
+
+${head(
+  "Demo Application Queue",
+  "Illustrative review queue with human oversight."
+)}
+
+<div class="card">
+
+  <div class="alert info" style="margin-bottom:14px">
+
+    All application records shown here are fictional.
+
+  </div>
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>Application</th>
+        <th>Applicant</th>
+        <th>Scheme</th>
+        <th>Match</th>
+        <th>Demo Flag</th>
+        <th>Stage</th>
+        <th>Action</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td>
+          DEMO-NFST-2026-00124
+        </td>
+
+        <td>
+          Demo Applicant
+        </td>
+
+        <td>
+          Fellowship — Demo
+        </td>
+
+        <td>
+          <span class="badge green">
+            94%
+          </span>
+        </td>
+
+        <td>
+          <span class="badge amber">
+            Demo mismatch
+          </span>
+        </td>
+
+        <td>
+          ${state.application}
+        </td>
+
+        <td>
+
+          <button
+            class="btn"
+            onclick="go('intelligence')">
+
+            View
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          DEMO-NOS-2026-000842
+        </td>
+
+        <td>
+          Demo Applicant 2
+        </td>
+
+        <td>
+          Overseas Scholarship — Demo
+        </td>
+
+        <td>
+          <span class="badge green">
+            87%
+          </span>
+        </td>
+
+        <td>
+          <span class="badge green">
+            None
+          </span>
+        </td>
+
+        <td>
+          Eligibility
+        </td>
+
+        <td>
+
+          <button class="btn">
+            View
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+`;
+}
+
+function intelligence(){
+
+return `
+
+${head(
+  "Application Intelligence Center — Demo",
+  "Human-in-the-loop review workspace."
+)}
+
+<div class="card">
+
+  <div class="alert info">
+
+    This is a fictional application used to demonstrate
+    AI-assisted review concepts.
+
+  </div>
+
+  <div class="row">
+
+    <div>
+
+      <h2>
+        DEMO-NFST-2026-00124
+      </h2>
+
+      <div class="muted">
+        Applicant: Demo Applicant · Fellowship — Demo
+      </div>
+
+    </div>
+
+    <span class="badge amber">
+      ${state.application}
+    </span>
+
+  </div>
+
+  <div
+    class="grid g4"
+    style="margin-top:18px">
+
+    ${
+      [
+        ["Preliminary Match","94%"],
+        ["Document Completeness","96%"],
+        ["Data Consistency","98%"],
+        ["AI Risk Indicator","LOW — DEMO"]
+      ].map(x=>`
+
+        <div class="card">
+
+          <div class="label">
+            ${x[0]}
+          </div>
+
+          <div class="kpi">
+            ${x[1]}
+          </div>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+  <div
+    class="grid g2"
+    style="margin-top:16px">
+
+    <div class="card">
+
+      <h2>
+        Demonstration Document Analysis
+      </h2>
+
+      ${
+        [
+          "ST Category Certificate — Demo ✓",
+          "Income Certificate — Demo ⚠",
+          "Academic Record — Demo ✓",
+          "Admission Proof — Demo ✓",
+          "Bank Verification — Demo ✓"
+        ].map(x=>`
+
+          <div
+            style="padding:11px;border-bottom:1px solid var(--line)">
+
+            ${x}
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>
+
+    <div class="card">
+
+      <h2>
+        Illustrative AI Findings
+      </h2>
+
+      <div class="alert">
+
+        <b>
+          Demonstration mismatch detected.
+        </b>
+
+        <br><br>
+
+        Application value:
+        ₹XX,XXX
+
+        <br>
+
+        Certificate value:
+        ₹XX,XXX
+
+        <br><br>
+
+        <b>
+          Suggested workflow:
+        </b>
+
+        Request clarification and perform human review.
+
+      </div>
+
+      <div
+        class="actions"
+        style="margin-top:14px">
+
+        <button
+          class="btn success"
+          onclick="verify()">
+
+          Mark Demo Verified
+
+        </button>
+
+        <button
+          class="btn warn"
+          onclick="raiseDeficiency()">
+
+          Raise Demo Deficiency
+
+        </button>
+
+        <button
+          class="btn"
+          onclick="verify()">
+
+          Request Clarification
+
+        </button>
+
+      </div>
+
+      <p class="muted">
+        AI recommendation is not a final decision.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div
+    class="card"
+    style="margin-top:16px">
+
+    <h2>
+      Demonstration Audit Trail
+    </h2>
+
+    <div class="muted">
+      09:42 — Demo application submitted
+    </div>
+
+    <div class="muted">
+      09:43 — Illustrative AI screening completed
+    </div>
+
+    <div class="muted">
+      09:44 — Demo mismatch detected
+    </div>
+
+    <div class="muted">
+      09:46 — Assigned to Demo Officer
+    </div>
+
+  </div>
+
+</div>
+`;
+}
+
+function selection(){
+
+return `
+
+${head(
+  "Selection Management — Prototype",
+  "Demonstration of provisional selection workflows."
+)}
+
+<div class="card">
+
+  <div class="alert info">
+
+    This list contains fictional applicants and scores.
+    It does not represent any real selection list.
+
+  </div>
+
+  <div class="row">
+
+    <div>
+
+      <h2>
+        Fellowship 2026–27 — Demo Selection
+      </h2>
+
+      <div class="muted">
+        Fictional demonstration data
+      </div>
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="alert('Demo provisional selection list generated. Human approval remains required in a real implementation.')">
+
+      Generate Demo List
+
+    </button>
+
+  </div>
+
+  <table style="margin-top:14px">
+
+    <thead>
+
+      <tr>
+
+        <th>Applicant</th>
+        <th>Academic</th>
+        <th>Research</th>
+        <th>Demo Score</th>
+        <th>Status</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td>Demo Applicant</td>
+        <td>82</td>
+        <td>88</td>
+        <td>—</td>
+
+        <td>
+
+          <span class="badge amber">
+            Pending Demo Committee
+          </span>
+
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>Demo Applicant 2</td>
+        <td>86</td>
+        <td>81</td>
+        <td>—</td>
+
+        <td>
+
+          <span class="badge green">
+            Demo Eligible
+          </span>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+`;
+}
+
+function payments(){
+
+return `
+
+${head(
+  "Payment Lifecycle Demonstration",
+  "Simulated payment workflow using fictional values."
+)}
+
+<div class="alert info">
+
+  No real banking, PFMS, DBT or payment transaction
+  is connected to this prototype.
+
+</div>
+
+<div class="card" style="margin-top:16px">
+
+  <h2>
+    DEMO-NFST-2026-00124
+  </h2>
+
+  <div class="timeline">
+
+    ${
+      [
+        "Sanctioned — Demo",
+        "Payment Request — Demo",
+        "Processing — Demo",
+        "Paid — Demo"
+      ].map((x,i)=>`
+
+        <div
+          class="step
+          ${state.payment==="Paid"||i<2?'done':i===2?'current':''}">
+
+          <div class="dot"></div>
+
+          <div class="muted">
+            ${x}
+          </div>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+  <div class="grid g3">
+
+    <div>
+
+      <div class="label">
+        Demonstration amount
+      </div>
+
+      <b>
+        ₹XX,XXX
+      </b>
+
+    </div>
+
+    <div>
+
+      <div class="label">
+        Demo reference
+      </div>
+
+      <b>
+        DEMO-PAY-2026-00842
+      </b>
+
+    </div>
+
+    <div>
+
+      <div class="label">
+        Status
+      </div>
+
+      <span class="badge amber">
+        ${state.payment}
+      </span>
+
+    </div>
+
+  </div>
+
+  <div
+    class="actions"
+    style="margin-top:18px">
+
+    <button
+      class="btn primary"
+      onclick="processPayment()">
+
+      Process Demo Payment
+
+    </button>
+
+  </div>
+
+  <div
+    class="alert info"
+    style="margin-top:14px">
+
+    Payment gateway / government payment integration:
+    <b>SIMULATED ONLY</b>
+
+  </div>
+
+</div>
+`;
+}
+
+function analytics(){
+
+return `
+
+${head(
+  "Analytics — Demonstration",
+  "Operational analytics using entirely fictional prototype data."
+)}
+
+<div class="grid g2">
+
+  <div class="card">
+
+    <h2>
+      Demo Applications by Region
+    </h2>
+
+    ${
+      [
+        "Region A",
+        "Region B",
+        "Region C",
+        "Region D",
+        "Region E"
+      ].map((x,i)=>`
+
+        <div
+          class="statline"
+          style="margin:14px 0">
+
+          <span>${x}</span>
+
+          <div class="bar">
+
+            <i style="width:${90-i*14}%"></i>
+
+          </div>
+
+          <b>
+            ${[
+              2480,
+              2180,
+              1740,
+              1510,
+              1290
+            ][i].toLocaleString()}
+          </b>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+  <div class="card">
+
+    <h2>
+      Demonstration Processing Times
+    </h2>
+
+    ${
+      [
+        "Document Review",
+        "Officer Scrutiny",
+        "Eligibility",
+        "Sanction",
+        "Payment Simulation"
+      ].map((x,i)=>`
+
+        <div
+          class="statline"
+          style="margin:14px 0">
+
+          <span>${x}</span>
+
+          <div class="bar">
+
+            <i style="width:${84-i*12}%"></i>
+
+          </div>
+
+          <b>
+            ${[
+              4.8,
+              3.9,
+              2.1,
+              1.6,
+              1.2
+            ][i]} days
+          </b>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+</div>
+
+<div
+  class="card"
+  style="margin-top:16px">
+
+  <h2>
+    Demonstration Deficiency Analysis
+  </h2>
+
+  <div class="grid g2">
+
+    ${
+      [
+        "Missing certificate",
+        "Invalid document",
+        "Name mismatch",
+        "Expired document",
+        "Incorrect information"
+      ].map((x,i)=>`
+
+        <div class="row">
+
+          <span>
+            ${x}
+          </span>
+
+          <b>
+            ${[
+              184,
+              132,
+              98,
+              64,
+              51
+            ][i]}
+          </b>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+
+</div>
+`;
+}
+
+function grievances(){
+
+return `
+
+${head(
+  "Grievance & Helpdesk — Demo",
+  "Illustrative support-ticket workflow."
+)}
+
+<div class="card">
+
+  <div class="row">
+
+    <div>
+
+      <h2>
+        ${state.grievance||"No active demo grievance"}
+      </h2>
+
+      <div class="muted">
+
+        ${
+          state.grievance
+          ?"DEMO-GRV-2026-004829 · Under Review"
+          :"Create a fictional support ticket for demonstration."
+        }
+
+      </div>
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="raiseGrievance()">
+
+      Raise Demo Grievance
+
+    </button>
+
+  </div>
+
+  ${
+    state.grievance
+
+    ?
+
+    `
+
+    <div
+      class="timeline"
+      style="margin-top:25px">
+
+      ${
+        [
+          "Submitted",
+          "Assigned",
+          "Under Review",
+          "Response",
+          "Resolved"
+        ].map((x,i)=>`
+
+          <div
+            class="step
+            ${i<2?'done':i===2?'current':''}">
+
+            <div class="dot"></div>
+
+            <div class="muted">
+              ${x}
+            </div>
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>
+
+    `
+
+    :
+
+    ""
+  }
+
+</div>
+`;
+}
+
+function generic(title,body){
+
+return `
+
+${head(title)}
+
+<div class="card">
+
+  ${body}
+
+</div>
+
+`;
+}
+
+function render(){
+
+let c="";
+
+if(state.role==="applicant"){
+
+  if(state.page==="dashboard")
+    c=dashboard();
+
+  else if(state.page==="schemes")
+    c=schemesPage();
+
+  else if(state.page==="eligibility")
+    c=eligibility();
+
+  else if(state.page==="application")
+    c=application();
+
+  else if(state.page==="documents")
+    c=documents();
+
+  else if(state.page==="payments")
+    c=payments();
+
+  else if(state.page==="grievances")
+    c=grievances();
+
+  else if(state.page==="applications")
+
+    c=generic(
+      "My Demo Applications",
+      `
+      <h2>
+        DEMO-NFST-2026-00124
+      </h2>
+
+      <span class="badge amber">
+        ${state.application}
+      </span>
+
+      <p class="muted">
+        Fictional application record for demonstration.
+      </p>
+      `
+    );
+
+  else if(state.page==="fellowship")
+
+    c=generic(
+      "My Fellowship — Demo",
+      `
+      <h2>
+        Fellowship Status: Demonstration
+      </h2>
+
+      <p>
+        Research:
+        Computer Science · Demo University · 2026–2029
+      </p>
+
+      <div class="successbox">
+
+        Demonstration installment status:
+        Processing
+
+      </div>
+      `
+    );
+
+  else
+
+    c=generic(
+      state.page==="profile"
+      ?"My Demo Profile"
+      :"Help & FAQs",
+      `
+      <p class="muted">
+
+        This section is part of the academic prototype.
+        No real user account or government authentication
+        is implemented.
+
+      </p>
+      `
+    );
+
+}else{
+
+  if(state.page==="admin")
+    c=admin();
+
+  else if(state.page==="queue")
+    c=queue();
+
+  else if(state.page==="intelligence")
+    c=intelligence();
+
+  else if(state.page==="selection")
+    c=selection();
+
+  else if(state.page==="payments")
+    c=payments();
+
+  else if(state.page==="analytics")
+    c=analytics();
+
+  else if(state.page==="grievances")
+    c=grievances();
+
+  else if(state.page==="audit")
+
+    c=generic(
+      "Audit Logs — Demonstration",
+      `
+      <h2>
+        Illustrative Activity Trail
+      </h2>
+
+      <p>
+        09:43 — Demo AI screening completed
+      </p>
+
+      <p>
+        09:44 — Demonstration mismatch detected
+      </p>
+
+      <p>
+        09:46 — Assigned to Demo Officer
+      </p>
+
+      <p>
+        11:32 — Demo applicant uploaded revised document
+      </p>
+
+      <p>
+        12:15 — Demo Officer completed verification
+      </p>
+      `
+    );
+
+  else
+
+    c=generic(
+      "Scheme Configuration — Demonstration",
+      `
+      <h2>
+        Fellowship Scheme — Demo Version 3
+      </h2>
+
+      <p class="muted">
+        Visual rule-builder concept.
+      </p>
+
+      <div class="alert info">
+
+        IF Category = Demo ST
+        AND Income = configured demonstration value
+        AND Education Level = configured level
+        THEN Preliminary Eligibility = TRUE
+
+      </div>
+
+      <div
+        class="actions"
+        style="margin-top:14px">
+
+        <button
+          class="btn"
+          onclick="alert('Demo rule impact calculated using fictional data.')">
+
+          Preview Demo Rule Impact
+
+        </button>
+
+      </div>
+      `
+    );
+
+}
+
+document.getElementById("app").innerHTML=layout(c);
+
+}
+
+function go(p){
+
+state.page=p;
+render();
+
+}
+
+function switchRole(){
+
+state.role=
+state.role==="applicant"
+?"officer"
+:"applicant";
+
+state.page=
+state.role==="applicant"
+?"dashboard"
+:"admin";
+
+render();
+
+}
+
+function checkEligibility(){
+
+state.page="eligibility";
+render();
+
+}
+
+function runEligibility(){
+
+state.eligibility=94;
+render();
+
+}
+
+function startApplication(){
+
+state.page="application";
+render();
+
+}
+
+function submitApplication(){
+
+state.application="Under Scrutiny";
+state.page="dashboard";
+render();
+
+}
+
+function uploadDoc(){
+
+state.docUploaded=true;
+render();
+
+}
+
+function raiseDeficiency(){
+
+state.deficiency=true;
+state.application="Deficient";
+
+alert(
+  "Demonstration deficiency created. No real notification was sent."
+);
+
+render();
+
+}
+
+function resubmit(){
+
+state.deficiency=false;
+state.application="Resubmitted";
+
+alert(
+  "Demonstration document resubmitted. No real document was uploaded."
+);
+
+render();
+
+}
+
+function verify(){
+
+state.verified=true;
+state.application="Verified";
+
+alert(
+  "Demonstration human verification completed."
+);
+
+render();
+
+}
+
+function processPayment(){
+
+state.payment="Paid";
+
+alert(
+  "Demonstration payment status changed to Paid. No real transaction occurred."
+);
+
+render();
+
+}
+
+function raiseGrievance(){
+
+state.grievance="Demo Payment Status Clarification";
+
+alert(
+  "Demo grievance DEMO-GRV-2026-004829 created. No real ticket was submitted."
+);
+
+render();
+
+}
+
+function filterSchemes(q){
+
+let a=schemes.filter(
+  s=>s.name.toLowerCase().includes(q.toLowerCase())
+);
+
+document.getElementById("schemeList").innerHTML=
+schemeCards(a);
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
+```
